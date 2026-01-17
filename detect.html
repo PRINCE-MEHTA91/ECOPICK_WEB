@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Waste Detection - EcoPick</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <style>
+        .high-confidence { color: #28a745; font-weight: bold; } 
+        .medium-confidence { color: #ffc107; font-weight: bold; } 
+        .low-confidence { color: #dc3545; font-weight: bold; } 
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-green-700">♻️ EcoPick</div>
+                <div class="hidden md:block">
+                    <ul class="flex items-center space-x-4">
+                        <li><a href="index.html" class="text-gray-600 hover:text-green-700">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 hover:text-green-700">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 hover:text-green-700">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 hover:text-green-700">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 hover:text-green-700">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 flex flex-col items-center px-4">
+        <h1 class="text-3xl font-bold text-gray-800">AI Waste Detection</h1>
+        <p class="text-gray-600 mt-2">Upload an image and our AI will detect the waste material.</p>
+
+        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-8 mt-8">
+            <label for="image-upload" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg cursor-pointer inline-block">
+                Choose an Image
+            </label>
+            <input type="file" id="image-upload" accept="image/*" class="hidden">
+            
+            <img id="preview" class="mt-6 rounded-lg border-2 border-dashed border-gray-300 p-2 mx-auto" style="display:none; max-width: 100%;">
+
+            <div id="result" class="mt-6 text-center text-lg text-gray-700">
+                Upload an image to start.
+            </div>
+
+            <div id="detection-details" class="mt-6" style="display:none;">
+                <div class="text-center space-y-2">
+                    <p class="text-lg">Detected Material: <b id="material-name" class="text-green-700"></b></p>
+                    <p class="text-lg">Confidence: <span id="confidence-percentage"></span></p>
+                </div>
+                <div class="mt-6">
+                    <label for="weight-input" class="block text-gray-700 font-bold mb-2">Enter Weight (kg):</label>
+                    <input type="number" id="weight-input" step="0.01" min="0.01" placeholder="e.g., 0.5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button id="calculate-price-btn" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Continue
+                    </button>
+                </div>
+                <div id="price-result" class="mt-6" style="display:none;">
+                    <p id="estimated-earnings" class="text-center text-xl font-bold">Estimated Earnings: <b id="earnings-value" class="text-green-700"></b></p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <button id="sell-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">Sell</button>
+                        <button id="cancel-btn" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="detect-btn" onclick="detectWaste()" disabled class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">
+                Detect Material
+            </button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        
+        checkAuth('Please log in or create a profile to detect waste.');
+
+        
+        let materialPrices = {}; 
+
+        
+        const imageUpload = document.getElementById("image-upload");
+        const preview = document.getElementById("preview");
+        const detectBtn = document.getElementById("detect-btn");
+        const resultDiv = document.getElementById("result");
+
+        const detectionDetailsDiv = document.getElementById("detection-details");
+        const materialNameSpan = document.getElementById("material-name");
+        const confidencePercentageSpan = document.getElementById("confidence-percentage");
+        const weightInput = document.getElementById("weight-input");
+        const calculatePriceBtn = document.getElementById("calculate-price-btn");
+        
+        const priceResultDiv = document.getElementById("price-result");
+        const estimatedEarningsP = document.getElementById("estimated-earnings");
+        const earningsValueSpan = document.getElementById("earnings-value");
+        const sellBtn = document.getElementById("sell-btn");
+        const cancelBtn = document.getElementById("cancel-btn");
+
+
+        
+        async function loadMaterialPrices() {
+            try {
+                const response = await fetch('/api/prices');
+                const data = await response.json();
+                if (data.status === 'success') {
+                    materialPrices = data.prices;
+                    console.log("Material prices loaded:", materialPrices);
+                } else {
+                    throw new Error(data.message || "Failed to load prices from API.");
+                }
+            } catch (error) {
+                console.error("Error loading material prices:", error);
+                
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMaterialPrices);
+
+
+        
+        imageUpload.addEventListener("change", () => {
+            const file = imageUpload.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+                resultDiv.innerText = "Image loaded. Ready to detect.";
+                detectBtn.disabled = false;
+                
+                
+                detectionDetailsDiv.style.display = "none";
+                priceResultDiv.style.display = "none";
+                detectBtn.style.display = "block";
+                calculatePriceBtn.style.display = 'block';
+                weightInput.value = "";
+            };
+            reader.readAsDataURL(file);
+        });
+
+        
+        async function detectWaste() {
+            const image = document.getElementById("preview");
+            if (!image.src) {
+                alert("Please select an image first.");
+                return;
+            }
+
+            detectBtn.disabled = true;
+            detectBtn.innerText = "Detecting...";
+            resultDiv.innerText = "Analyzing image...";
+            detectionDetailsDiv.style.display = "none";
+
+            try {
+                const modelURL = "https://teachablemachine.withgoogle.com/models/kVbmR_xSe/model.json";
+                const metadataURL = "https://teachablemachine.withgoogle.com/models/kVbmR_xSe/metadata.json";
+
+                const model = await tmImage.load(modelURL, metadataURL);
+                const prediction = await model.predict(image);
+
+                prediction.sort((a, b) => b.probability - a.probability);
+
+                const bestPrediction = prediction[0];
+                let material = bestPrediction.className;
+                const confidence = Math.round(bestPrediction.probability * 100);
+                
+                if (material.toLowerCase().includes('organic')) {
+                    material = 'Organic Waste';
+                }
+
+                
+                confidencePercentageSpan.className = '';
+
+                
+                if (confidence >= 50) {
+                    confidencePercentageSpan.classList.add(confidence >= 80 ? 'high-confidence' : 'medium-confidence');
+                    resultDiv.innerText = "Detection successful! Enter weight to continue.";
+                } else {
+                    confidencePercentageSpan.classList.add('low-confidence');
+                    resultDiv.innerText = "Low confidence detected. Please try uploading a clearer image.";
+                    detectBtn.innerText = "Detect Again";
+                    detectBtn.disabled = false;
+                    return; 
+                }
+
+                
+                materialNameSpan.textContent = material;
+                confidencePercentageSpan.textContent = `${confidence}%`;
+                detectionDetailsDiv.style.display = "block";
+                weightInput.disabled = false;
+                weightInput.focus();
+
+                
+                localStorage.setItem('transactionMaterial', material);
+                
+                detectBtn.style.display = "none";
+
+            } catch (error) {
+                console.error("Detection error:", error);
+                resultDiv.innerText = "Error during detection. Please try again.";
+                detectBtn.style.display = "block";
+                detectBtn.disabled = false;
+                detectBtn.innerText = "Detect Material";
+            }
+        }
+
+        
+        calculatePriceBtn.addEventListener('click', () => {
+            const weight = parseFloat(weightInput.value);
+            const material = localStorage.getItem('transactionMaterial');
+
+            if (!material || !weight || weight <= 0) {
+                alert("Please ensure a material is detected and a valid weight is entered.");
+                return;
+            }
+            
+            localStorage.setItem('transactionWeight', weight);
+            window.location.href = 'pricing.html';
+        });
+        
+        
+        
+        cancelBtn.addEventListener('click', () => {
+            
+            preview.style.display = "none";
+            imageUpload.value = "";
+            resultDiv.innerText = "Upload an image to start.";
+            detectBtn.style.display = "block";
+            detectBtn.disabled = true;
+            detectBtn.innerText = "Detect Material";
+            detectionDetailsDiv.style.display = "none";
+            priceResultDiv.style.display = "none";
+            calculatePriceBtn.style.display = 'block';
+            calculatePriceBtn.innerText = "Continue";
+            weightInput.value = "";
+
+            
+            localStorage.removeItem('transactionMaterial');
+            localStorage.removeItem('transactionWeight');
+        });
+
+    </script>
+
+</body>
+</html>

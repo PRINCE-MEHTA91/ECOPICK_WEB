@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Transaction - EcoPick</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-green-700">♻️ EcoPick</div>
+                <div class="hidden md:block">
+                    <ul class="flex items-center space-x-4">
+                        <li><a href="index.html" class="text-gray-600 hover:text-green-700">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 hover:text-green-700">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 hover:text-green-700">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 hover:text-green-700">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 hover:text-green-700">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 flex justify-center">
+        <div class="w-full max-w-lg bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-2xl font-bold text-center text-green-700 mb-6">Confirm Your Transaction</h1>
+            
+            <div class="pricing-details space-y-4">
+                <div class="flex justify-between border-b pb-2">
+                    <p class="font-bold text-gray-700">Customer Name:</p>
+                    <span id="customer-name" class="text-gray-600"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <p class="font-bold text-gray-700">Detected Material:</p>
+                    <span id="material-name" class="text-gray-600"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <p class="font-bold text-gray-700">Weight:</p>
+                    <span id="weight-display" class="text-gray-600"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <p class="font-bold text-gray-700">Price per Kg:</p>
+                    <span id="price-per-kg" class="text-gray-600"></span>
+                </div>
+                <div class="flex justify-between items-center pt-4">
+                    <p class="text-xl font-bold text-green-700">Estimated Earnings:</p>
+                    <span id="total-price" class="text-xl font-bold text-green-700"></span>
+                </div>
+            </div>
+
+            <div class="btn-container mt-8 flex justify-center space-x-4">
+                <button id="sell-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">Sell</button>
+                <button id="not-sell-btn" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        
+        checkAuth('Please log in or create a profile to sell waste.');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const material = localStorage.getItem('transactionMaterial');
+            const weight = parseFloat(localStorage.getItem('transactionWeight'));
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            const materialNameSpan = document.getElementById('material-name');
+            const customerNameSpan = document.getElementById('customer-name');
+            const weightDisplaySpan = document.getElementById('weight-display');
+            const pricePerKgSpan = document.getElementById('price-per-kg');
+            const totalPriceSpan = document.getElementById('total-price');
+            const sellBtn = document.getElementById('sell-btn');
+            const notSellBtn = document.getElementById('not-sell-btn');
+            const pricingDetailsDiv = document.querySelector('.pricing-details');
+            const btnContainer = document.querySelector('.btn-container');
+
+            if(user && user.name) {
+                customerNameSpan.textContent = user.name;
+            } else {
+                customerNameSpan.textContent = 'N/A';
+            }
+
+
+            if (!material || !weight) {
+                pricingDetailsDiv.innerHTML = '<p class="text-red-500 text-center">No transaction data found. Please go back to the detection page and try again.</p>';
+                if(btnContainer) btnContainer.style.display = 'none';
+                return;
+            }
+
+            
+            const getMaterialKey = (detectedMaterial) => {
+                const name = detectedMaterial.trim().toLowerCase();
+                const mapping = {
+                    "glass": "glass",
+                    "wood": "wood",
+                    "cloth": "cloth",
+                    "plastic": "plastic",
+                    "organics": "organic",
+                    "paper": "paper",
+                    "cardboard": "cardboard",
+                    "electronic": "electronic",
+                    "metal": "metal"
+                };
+                
+                if (mapping[name]) {
+                    return mapping[name];
+                }
+                
+                for (const key in mapping) {
+                    if (name.includes(key)) {
+                        return mapping[key];
+                    }
+                }
+                return "other"; 
+            };
+
+
+            try {
+                const response = await fetch('/api/prices');
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    const materialKey = getMaterialKey(material);
+                    const materialInfo = data.prices[materialKey];
+                    
+                    if (materialInfo) {
+                        const pricePerKg = materialInfo.price;
+                        const totalPrice = weight * pricePerKg;
+
+                        materialNameSpan.textContent = materialInfo.displayName || material;
+                        weightDisplaySpan.textContent = `${weight.toFixed(2)} kg`;
+                        pricePerKgSpan.textContent = `₹${pricePerKg.toFixed(2)}`;
+                        totalPriceSpan.textContent = `₹${totalPrice.toFixed(2)}`;
+
+                        localStorage.setItem('transactionEarnings', totalPrice.toFixed(2));
+                        localStorage.setItem('materialDisplayName', materialInfo.displayName);
+                    } else {
+                        pricingDetailsDiv.innerHTML = `<p class="text-red-500 text-center">Could not find pricing for material: ${material}.</p>`;
+                        if(btnContainer) btnContainer.style.display = 'none';
+                    }
+                } else {
+                    throw new Error(data.message || 'Failed to load prices.');
+                }
+            } catch (error) {
+                console.error("Error fetching prices:", error);
+                pricingDetailsDiv.innerHTML = `<p class="text-red-500 text-center">Error: ${error.message}</p>`;
+                if(btnContainer) btnContainer.style.display = 'none';
+            }
+            
+            sellBtn.addEventListener('click', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                alert("You must be logged in to sell waste.");
+                window.location.href = 'profile.html';
+                return;
+            }
+
+            const material = localStorage.getItem('transactionMaterial');
+            const weight = parseFloat(localStorage.getItem('transactionWeight'));
+            const earnings = parseFloat(localStorage.getItem('transactionEarnings'));
+
+            fetch("/api/submit-waste", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    material, 
+                    weight, 
+                    earnings,
+                    profileId: user.profileId 
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "success") {
+                    
+                    localStorage.removeItem('transactionMaterial');
+                    localStorage.removeItem('transactionWeight');
+                    localStorage.removeItem('transactionEarnings');
+                    localStorage.removeItem('materialDisplayName');
+                    localStorage.removeItem('detectedMaterial');
+                    localStorage.removeItem('detectedConfidence');
+                    
+                    alert('Transaction successful! Your profile has been updated.');
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert("Submission failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Submit waste API error:", error);
+                alert("Server error during submission.");
+            });
+        });
+
+        notSellBtn.addEventListener('click', () => {
+            
+            localStorage.removeItem('transactionMaterial');
+            localStorage.removeItem('transactionWeight');
+            localStorage.removeItem('transactionEarnings');
+            localStorage.removeItem('materialDisplayName');
+            localStorage.removeItem('detectedMaterial');
+            localStorage.removeItem('detectedConfidence');
+            window.location.href = 'index.html';
+        });
+        });
+    </script>
+
+</body>
+</html>

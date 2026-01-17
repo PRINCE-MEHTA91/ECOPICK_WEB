@@ -1,0 +1,170 @@
+{
+  "ECOPICK-CUST-25-2979HW": {
+    "profileId": "ECOPICK-CUST-25-2979HW",
+    "name": "prince",
+    "phoneNumber": "6206232682",
+    "createdAt": "2025-12-23T07:52:25.825Z",
+    "stats": {
+      "totalWeight": 35,
+      "totalEarnings": 920,
+      "detections": 5
+    },
+    "transactions": [
+      {
+        "id": "txn_8sa83VPKRb3nadcMrdkmr1",
+        "timestamp": "2025-12-23T08:59:13.420Z",
+        "material": "plastic",
+        "weight": 12,
+        "earnings": 144
+      },
+      {
+        "material": "Electronic ",
+        "weight": 8,
+        "earnings": 200,
+        "timestamp": "2025-12-26T06:35:35.218Z"
+      },
+      {
+        "material": "plastic",
+        "weight": 3,
+        "earnings": 36,
+        "timestamp": "2025-12-26T09:29:39.435Z"
+      },
+      {
+        "material": "metal",
+        "weight": 9,
+        "earnings": 405,
+        "timestamp": "2025-12-26T09:35:05.893Z"
+      },
+      {
+        "material": "metal",
+        "weight": 3,
+        "earnings": 135,
+        "timestamp": "2026-01-15T16:02:41.203Z",
+        "sale_status": "completed"
+      }
+    ],
+    "email": "prince01zc@gmail.com",
+    "address": " daudnager,aurangabad ,bihar (824143)"
+  },
+  "ECOPICK-CUST-25-QGU7A7": {
+    "profileId": "ECOPICK-CUST-25-QGU7A7",
+    "name": "sam",
+    "phoneNumber": "7800034425",
+    "createdAt": "2025-12-23T07:53:18.321Z",
+    "stats": {
+      "totalWeight": 99,
+      "totalEarnings": 774,
+      "detections": 4
+    },
+    "transactions": [
+      {
+        "material": "plastic",
+        "weight": 7,
+        "price": 84,
+        "date": "2025-12-24T18:10:34.397Z"
+      },
+      {
+        "material": "organic",
+        "weight": 34,
+        "price": 102,
+        "date": "2025-12-24T18:11:26.490Z"
+      },
+      {
+        "material": "cardboard ",
+        "weight": 54,
+        "price": 540,
+        "date": "2025-12-24T18:15:57.531Z"
+      },
+      {
+        "material": "plastic",
+        "weight": 4,
+        "earnings": 48,
+        "timestamp": "2025-12-26T09:30:33.624Z"
+      }
+    ],
+    "email": "prince0111zc@gmail.com",
+    "address": "daudnager"
+  },
+  "ECOPICK-CUST-25-BSCBAF": {
+    "profileId": "ECOPICK-CUST-25-BSCBAF",
+    "name": "sam",
+    "phoneNumber": "6206232683",
+    "createdAt": "2025-12-23T11:19:48.769Z",
+    "stats": {
+      "totalWeight": 22,
+      "totalEarnings": 176,
+      "detections": 1
+    },
+    "transactions": [
+      {
+        "material": "Paper",
+        "weight": 22,
+        "earnings": 176,
+        "timestamp": "2025-12-26T09:31:52.995Z"
+      }
+    ],
+    "email": "12345",
+    "address": "sahjfhe"
+  },
+  "user_63842ug7": {
+    "profileId": "user_63842ug7",
+    "name": "prince mehta",
+    "phoneNumber": "9142066384",
+    "createdAt": "2026-01-14T07:24:00.295Z",
+    "stats": {
+      "detections": 3,
+      "totalWeight": 31,
+      "totalEarnings": 1080
+    },
+    "transactions": [
+      {
+        "material": "metal",
+        "weight": 21,
+        "earnings": 945,
+        "timestamp": "2026-01-14T18:19:33.407Z",
+        "sale_status": "completed"
+      },
+      {
+        "material": "metal",
+        "weight": 3,
+        "earnings": 135,
+        "timestamp": "2026-01-15T16:18:31.986Z",
+        "sale_status": "completed"
+      },
+      {
+        "material": "Organic Waste",
+        "weight": 7,
+        "earnings": 0,
+        "timestamp": "2026-01-15T16:21:14.040Z",
+        "sale_status": "completed"
+      }
+    ]
+  },
+  "user_6055t01y": {
+    "profileId": "user_6055t01y",
+    "name": "prince",
+    "phoneNumber": "9119246055",
+    "createdAt": "2026-01-15T16:23:53.734Z",
+    "stats": {
+      "detections": 2,
+      "totalWeight": 24,
+      "totalEarnings": 208
+    },
+    "transactions": [
+      {
+        "material": "Paper",
+        "weight": 20,
+        "earnings": 160,
+        "timestamp": "2026-01-15T16:24:17.844Z",
+        "sale_status": "completed"
+      },
+      {
+        "material": "plastic",
+        "weight": 4,
+        "earnings": 48,
+        "timestamp": "2026-01-15T18:39:49.124Z",
+        "sale_status": "completed"
+      }
+    ]
+  }
+}

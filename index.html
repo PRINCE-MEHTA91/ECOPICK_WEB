@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPick - Turn Waste Into Instant Value</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-green-700 cursor-pointer" onclick="location.href='index.html'">♻️ EcoPick</div>
+                <div class="hidden md:block">
+                    <ul class="flex items-center space-x-4">
+                        <li><a href="index.html" class="text-gray-600 hover:text-green-700">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 hover:text-green-700">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 hover:text-green-700">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 hover:text-green-700">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 hover:text-green-700">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+    <section class="bg-green-600 text-white">
+        <div class="container mx-auto text-center py-20 px-6">
+            <h1 class="text-4xl md:text-5xl font-bold">Turn Waste Into <span class="text-yellow-300">Instant Value</span></h1>
+            <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
+                Upload or capture an image of your recyclable waste. Our AI instantly identifies 
+                the material type and calculates its value based on current market rates.
+            </p>
+            <div class="mt-8 space-x-4">
+                <button class="bg-yellow-400 hover:bg-yellow-500 text-green-800 font-bold py-3 px-6 rounded-lg shadow-lg transition" onclick="location.href='detect.html'">Start Detecting</button>
+                <button class="bg-white hover:bg-gray-200 text-green-800 font-bold py-3 px-6 rounded-lg shadow-lg transition" onclick="location.href='dashboard.html'">View Dashboard</button>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="realtime-data py-16 bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Real-Time Impact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 id="total-materials" class="text-4xl font-bold text-green-600">0</h3>
+                    <p class="mt-2 text-gray-600">Total Materials Recycled</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 id="total-kg" class="text-4xl font-bold text-blue-600">0</h3>
+                    <p class="mt-2 text-gray-600">Total Kilograms Recycled</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 id="total-price" class="text-4xl font-bold text-yellow-600">0</h3>
+                    <p class="mt-2 text-gray-600">Total Value Earned</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800 cursor-pointer" onclick="location.href='/api/features'">Why Choose EcoPick?</h2>
+            <p class="mt-2 text-gray-600 max-w-xl mx-auto">Powerful features to make recycling easier and more rewarding</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 text-left">
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='/api/features'">
+                    <h3 class="text-xl font-bold text-green-700">📷 AI-Powered Detection</h3>
+                    <p class="mt-2 text-gray-600">Instantly identifies waste materials with high accuracy using advanced AI.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='/api/pricing'">
+                    <h3 class="text-xl font-bold text-green-700">📈 Real-Time Pricing</h3>
+                    <p class="mt-2 text-gray-600">Get market-based price estimates for your recyclables instantly.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='index.html'">
+                    <h3 class="text-xl font-bold text-green-700">🌱 Eco-Friendly</h3>
+                    <p class="mt-2 text-gray-600">Encourages recycling and helps build a cleaner environment.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='/api/features'">
+                    <h3 class="text-xl font-bold text-green-700">⚡ Lightning Fast</h3>
+                    <p class="mt-2 text-gray-600">Get results in seconds with optimized AI models.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='/api/features'">
+                    <h3 class="text-xl font-bold text-green-700">🎯 High Accuracy</h3>
+                    <p class="mt-2 text-gray-600">Trained on thousands of images for precise predictions.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 cursor-pointer transform hover:scale-105 transition" onclick="location.href='dashboard.html'">
+                    <h3 class="text-xl font-bold text-green-700">👤 User Dashboard</h3>
+                    <p class="mt-2 text-gray-600">Track your recycling history and your environmental impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="bg-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1593113589977-a517d6ba1e05?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Recycling for a Greener Planet" class="rounded-lg shadow-2xl">
+                </div>
+                <div class="text-gray-800" data-aos="fade-left">
+                    <h2 class="text-4xl font-bold mb-4">Join the Movement for a Greener Planet</h2>
+                    <p class="text-lg mb-6">Recycling is one of the most effective ways to conserve natural resources, save energy, and reduce pollution. By choosing to recycle with EcoPick, you're not just earning rewards – you're making a tangible difference for the environment.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-green-500 text-2xl mr-4">✓</span>
+                            <span>
+                                <h3 class="font-semibold text-xl">Conserve Resources</h3>
+                                <p>Recycling paper and wood saves trees and forests. Recycling plastic means creating less new plastic.</p>
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 text-2xl mr-4">✓</span>
+                            <span>
+                                <h3 class="font-semibold text-xl">Save Energy</h3>
+                                <p>Using recycled materials in the manufacturing process uses considerably less energy than that required for producing new products from raw materials.</p>
+                            </span>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-green-500 text-2xl mr-4">✓</span>
+                            <span>
+                                <h3 class="font-semibold text-xl">Protect Ecosystems</h3>
+                                <p>By recycling, you help reduce the need for growing, harvesting, or extracting raw materials from the Earth, which in turn lessens the harmful disruption and damage being done to the natural world.</p>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="bg-gray-800 text-white py-16">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="cursor-pointer" onclick="location.href='/api/stats'">
+                    <h2 class="text-5xl font-bold">5+</h2>
+                    <p class="mt-2 text-lg">Material Types</p>
+                </div>
+                <div class="cursor-pointer" onclick="location.href='/api/stats'">
+                    <h2 class="text-5xl font-bold">95%+</h2>
+                    <p class="mt-2 text-lg">Accuracy Rate</p>
+                </div>
+                <div class="cursor-pointer" onclick="location.href='/api/stats'">
+                    <h2 class="text-5xl font-bold">&lt;5s</h2>
+                    <p class="mt-2 text-lg">Detection Time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="bg-green-600 text-white py-20">
+        <div class="container mx-auto text-center px-6">
+            <h2 class="text-3xl font-bold cursor-pointer" onclick="location.href='index.html'">Ready to Start Recycling Smarter?</h2>
+            <p class="mt-2 text-lg max-w-xl mx-auto">Join thousands of users making a positive impact while earning from recyclables.</p>
+            <button class="mt-8 bg-white hover:bg-gray-200 text-green-800 font-bold py-3 px-8 rounded-lg shadow-lg transition" onclick="location.href='index.html'">Get Started Now</button>
+        </div>
+    </section>
+    
+    <script src="/liveData.js"></script>
+    <footer class="bg-gray-800 text-white py-12 font-sans">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h5 class="text-xl font-bold mb-4">EcoPick</h5>
+                    <p class="text-base">Turn waste into value, instantly. We're dedicated to making recycling easier and more rewarding for everyone.</p>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="hover:text-green-400 transition-colors">Home</a></li>
+                        <li><a href="detect.html" class="hover:text-green-400 transition-colors">Detect</a></li>
+                        <li><a href="dashboard.html" class="hover:text-green-400 transition-colors">Dashboard</a></li>
+                        <li><a href="profile.html" class="hover:text-green-400 transition-colors">Profile</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Support</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Contact</h5>
+                    <p>Email: <a href="mailto:support@ecopick.com" class="text-green-400 hover:text-green-300 transition-colors">support@ecopick.com</a></p>
+                </div>
+            </div>
+            <div class="mt-10 border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-base text-center md:text-left">&copy; <span id="copyright-year"></span> EcoPick. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" aria-label="Facebook" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+</body>
+</html>
