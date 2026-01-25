@@ -1,5 +1,4 @@
 require("dotenv").config();
-console.log("API_KEY from .env:", process.env.API_KEY);
 
 const express = require("express");
 const session = require("express-session");
@@ -186,7 +185,7 @@ app.get("/api/global-stats", async (req, res) => {
 
 const startServer = (port) => {
     const server = app.listen(port, () => {
-        console.log(`🚀 Server running on http://localhost:${port}`);
+        console.log(`🚀 Server running on port ${port}`);
     }).on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
             console.log(`Port ${port} is in use, trying another one...`);
