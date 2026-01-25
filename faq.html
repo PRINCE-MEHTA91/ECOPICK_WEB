@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPick - FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Prevents FOUC (Flash of Unstyled Content)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <nav class="bg-white shadow-md dark:bg-gray-800">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-green-700 dark:text-green-400 cursor-pointer" onclick="location.href='index.html'">♻️ EcoPick</div>
+                <div class="hidden md:block">
+                    <ul class="flex items-center space-x-4">
+                        <li><a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Profile</a></li>
+                        <li><button id="theme-toggle" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 focus:outline-none">
+                            </button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6" data-aos="fade-down">Frequently Asked Questions (FAQ)</h1>
+        <div class="space-y-4">
+            <div class="space-y-6">
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">What is EcoPick?</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            EcoPick is a platform that uses AI to identify recyclable waste and estimate its value, making recycling more rewarding.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">How does it work?</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            You can upload or take a picture of your waste material, and our AI will analyze it, identify the type, and provide an estimated price based on current market rates.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Is it free to use?</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            Yes, EcoPick is free for individual users.
+        </p>
+    </div>
+
+    <!-- NEW SECTIONS -->
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Who can use EcoPick?</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            EcoPick is available for users aged 18 years or above. By using the platform, you confirm that the information you provide is accurate and genuine.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Accuracy of AI Estimates</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            The price and material identification provided by EcoPick are AI-based estimates. Actual prices may vary depending on local market conditions and waste quality.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">User Responsibilities</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            Users are responsible for ensuring that uploaded images are clear and represent real recyclable waste. Misuse, fake uploads, or fraudulent activities are strictly prohibited.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Prohibited Activities</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            Users must not upload harmful, illegal, misleading, or non-recyclable content. Any attempt to manipulate results or misuse the platform may result in account suspension.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Third-Party Services</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            EcoPick may connect users with third-party recyclers or collectors. EcoPick is not responsible for disputes, delays, or transactions between users and third parties.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Data Privacy</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            We respect your privacy. Uploaded images and user data are handled securely and used only to improve our services. Please review our Privacy Policy for more details.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Account Termination</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            EcoPick reserves the right to suspend or terminate user accounts that violate our terms, policies, or engage in misuse of the platform.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Changes to These Terms</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            EcoPick may update these terms from time to time. Continued use of the platform after changes means you accept the updated terms.
+        </p>
+    </div>
+
+    <div data-aos="fade-up">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Contact & Support</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">
+            If you have any questions or concerns, feel free to contact us at <span class="font-medium">support@ecopick.com</span>.
+        </p>
+    </div>
+
+</div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 dark:bg-black text-white py-12 font-sans">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h5 class="text-xl font-bold mb-4">EcoPick</h5>
+                    <p class="text-base">Turn waste into value, instantly. We're dedicated to making recycling easier and more rewarding for everyone.</p>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="hover:text-green-400 transition-colors">Home</a></li>
+                        <li><a href="detect.html" class="hover:text-green-400 transition-colors">Detect</a></li>
+                        <li><a href="dashboard.html" class="hover:text-green-400 transition-colors">Dashboard</a></li>
+                        <li><a href="profile.html" class="hover:text-green-400 transition-colors">Profile</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Support</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Contact Us</a></li>
+                        <li><a href="faq.html" class="hover:text-green-400 transition-colors">FAQ</a></li>
+                        <li><a href="terms.html" class="hover:text-green-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-4">Contact</h5>
+                    <p>Email: <a href="mailto:support@ecopick.com" class="text-green-400 hover:text-green-300 transition-colors">support@ecopick.com</a></p>
+                </div>
+            </div>
+            <div class="mt-10 border-t border-gray-700 dark:border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-base text-center md:text-left">&copy; <span id="copyright-year"></span> EcoPick. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" aria-label="Facebook" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram" class="text-2xl hover:text-green-400 transition-colors"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+    <script src="theme.js"></script>
+</body>
+</html>

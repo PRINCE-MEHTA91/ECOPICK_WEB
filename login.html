@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EcoPick</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Prevents FOUC (Flash of Unstyled Content)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md dark:bg-gray-800">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-green-700">♻️ EcoPick</div>
+                <div class="text-2xl font-bold text-green-700 dark:text-green-400">♻️ EcoPick</div>
                 <div class="hidden md:block">
                     <ul class="flex items-center space-x-4">
-                        <li><a href="index.html" class="text-gray-600 hover:text-green-700">Home</a></li>
-                        <li><a href="detect.html" class="text-gray-600 hover:text-green-700">Detect</a></li>
-                        <li><a href="dashboard.html" class="text-gray-600 hover:text-green-700">Dashboard</a></li>
-                        <li><a href="admin.html" class="text-gray-600 hover:text-green-700">Admin</a></li>
-                        <li><a href="profile.html" class="text-gray-600 hover:text-green-700">Profile</a></li>
+                        <li><a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Profile</a></li>
+                        <li><button id="theme-toggle" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 focus:outline-none">
+                            </button></li>
                     </ul>
                 </div>
             </div>
@@ -26,16 +36,16 @@
     </nav>
 
     <div class="flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-            <h1 class="text-2xl font-bold text-center text-green-700 mb-6">Login to EcoPick</h1>
+        <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+            <h1 class="text-2xl font-bold text-center text-green-700 dark:text-green-400 mb-6">Login to EcoPick</h1>
             <form id="loginForm">
                 <div class="mb-4">
-                    <label for="username" class="block text-gray-700 font-bold mb-2">Username</label>
-                    <input type="text" id="username" name="username" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <label for="username" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Username</label>
+                    <input type="text" id="username" name="username" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="mb-6">
-                    <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
-                    <input type="password" id="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <label for="password" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Password</label>
+                    <input type="password" id="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 dark:border-gray-600 mb-3 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="flex items-center justify-between">
                     <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -43,12 +53,13 @@
                     </button>
                 </div>
             </form>
-            <p class="text-center text-gray-500 text-sm mt-6">
+            <p class="text-center text-gray-500 dark:text-gray-400 text-sm mt-6">
                 Don't have an account? <a href="profile.html" class="text-green-600 hover:text-green-800 font-bold">Create one</a>
             </p>
         </div>
     </div>
 
     <script src="login.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>

@@ -5,21 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - EcoPick</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Prevents FOUC (Flash of Unstyled Content)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
     
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md dark:bg-gray-800">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-green-700 cursor-pointer" onclick="location.href='index.html'">♻️ EcoPick</div>
+                <div class="text-2xl font-bold text-green-700 dark:text-green-400 cursor-pointer" onclick="location.href='index.html'">♻️ EcoPick</div>
                 <div class="hidden md:block">
                     <ul class="flex items-center space-x-4">
-                        <li><a href="index.html" class="text-gray-600 hover:text-green-700">Home</a></li>
-                        <li><a href="detect.html" class="text-gray-600 hover:text-green-700">Detect</a></li>
-                        <li><a href="dashboard.html" class="text-gray-600 hover:text-green-700">Dashboard</a></li>
-                        <li><a href="admin.html" class="text-gray-600 hover:text-green-700">Admin</a></li>
-                        <li><a href="profile.html" class="text-gray-600 hover:text-green-700">Profile</a></li>
+                        <li><a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Home</a></li>
+                        <li><a href="detect.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Detect</a></li>
+                        <li><a href="dashboard.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Dashboard</a></li>
+                        <li><a href="admin.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Admin</a></li>
+                        <li><a href="profile.html" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400">Profile</a></li>
+                        <li><button id="theme-toggle" class="text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 focus:outline-none">
+                            </button></li>
                     </ul>
                 </div>
             </div>
@@ -27,8 +37,8 @@
     </nav>
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 class="text-3xl font-bold text-gray-800">Admin Panel</h1>
-        <p class="text-gray-600 mt-1">Manage scrap material rates from <code class="bg-gray-200 px-2 py-1 rounded">prices.json</code> and view user data.</p>
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Admin Panel</h1>
+        <p class="text-gray-600 dark:text-gray-300 mt-1">Manage scrap material rates from <code class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">prices.json</code> and view user data.</p>
     </div>
 
     <div id="pricing-container" class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -47,7 +57,7 @@
                     for (const key in prices) {
                         const item = prices[key];
                         const card = document.createElement('div');
-                        card.className = 'category-box bg-white rounded-lg shadow-lg overflow-hidden';
+                        card.className = 'category-box bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden';
                         card.innerHTML = `
                             <div class="cat-header p-6 text-white flex justify-between items-center" style="background:${item.gradient};">
                                 <h2 class="text-2xl font-bold">${item.displayName}</h2>
@@ -57,10 +67,10 @@
                             </div>
                             <div class="cat-body p-6">
                                 <div class="rate-line flex justify-between items-center">
-                                    <span class="text-lg text-gray-600">Current Rate</span>
-                                    <span class="text-2xl font-bold text-green-700">₹${item.price.toFixed(2)}</span>
+                                    <span class="text-lg text-gray-600 dark:text-gray-300">Current Rate</span>
+                                    <span class="text-2xl font-bold text-green-700 dark:text-green-400">₹${item.price.toFixed(2)}</span>
                                 </div>
-                                <p class="updated mt-4 text-sm text-gray-500">Last updated: N/A (Loaded from file)</p>
+                                <p class="updated mt-4 text-sm text-gray-500 dark:text-gray-400">Last updated: N/A (Loaded from file)</p>
                             </div>
                         `;
                         container.appendChild(card);
@@ -73,5 +83,6 @@
                 });
         });
     </script>
+    <script src="theme.js"></script>
 </body>
 </html>
