@@ -43,7 +43,7 @@ This project aims to make recycling more accessible and informative for everyone
 -   **User Dashboard:** Track your recycling history and your environmental impact.
 -   **Admin Panel:** For managing users and prices.
 
-## Screenshots
+## Screenshots we addding
 
 *(Add screenshots of your application here)*
 
